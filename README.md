@@ -1,5 +1,5 @@
 # FYP_code
-To run the code relevant to this thesis, the github in the link https://github.com/Omozua110/FYP must be cloned.
+To run the code relevant to this thesis, the github in the link https://github.com/Omozua110/FYP_code must be cloned.
 
 Due to the large size of the files, it was not possible to load them onto a github so to run this code you will have to download the "database.db" and the "state_CA.csv" files and put them in the clone repository as so:
    - The file "database.db" should be added into the webapp directory, path would be webapp/database.db
