@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Review Outcomes</title>
+    <script>
+        function filterTable() {
+            var table, tr, td, i, j;
+            table = document.getElementById('applicantsTable');
+            tr = table.getElementsByTagName('tr');
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 1; i < tr.length; i++) {
+                tr[i].style.display = "none";
+                var showRow = true;
+
+                var filters = document.getElementsByClassName('filter');
+                for (j = 0; j < filters.length; j++) {
+                    td = tr[i].getElementsByTagName('td')[j];
+                    if (td) {
+                        var filterValue = filters[j].value;
+                        var cellValue = td.textContent || td.innerText;
+
+                        if (filterValue !== "" && cellValue !== filterValue) {
+                            showRow = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (showRow) {
+                    tr[i].style.display = "";
+                }
+            }
+        }
+
+        function populateFilters() {
+            var table, tr, td, i, j;
+            table = document.getElementById('appplicantsTable');
+            tr = table.getElementsByTagName('tr');
+            var filters = document.getElementsByClassName('filter');
+
+            for (j = 0; j < filters.length; j++) {
+                var filterSet = new Set();
+                for (i = 1; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName('td')[j];
+                    if (td) {
+                        var cellValue = td.textContent || td.innerText;
+                        filterSet.add(cellValue);
+                    }
+                }
+
+                filters[j].innerHTML = '<option value="">All</option>';
+                filterSet.forEach(function(value) {
+                    filters[j].innerHTML += '<option value="' + value + '">' + value + '</option>';
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', populateFilters);
+    </script>
+</head>
+<body>
+    <h1>Outcomes to review</h1>
+
+    <!-- <div>
+    {% for col in col_names %}
+        <label for="filter{{ loop.index0 }}">{{ col }}:</label>
+        <select id="filter{{ loop.index0 }}" class="filter" onchange="filterTable()">
+            <option value="">All</option>
+        </select>
+    {% endfor %}
+    </div> -->
+
+    <table id="applicantsTable"  border="1">
+        <thead>
+            <tr>
+                {% for col_name in col_names %}
+                    <th>{{ col_name }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+                <tr>
+                    {% for col_name in col_names %}
+                        <td>{{ row[col_name] }}</td>
+                    {% endfor %}
+                    <td><a href="{{ url_for('edit_outcome', applicant_id=row['index']) }}">Change Outcome</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('home') }}">Back</a>
+</body>
+</html>

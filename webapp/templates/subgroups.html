@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <script>
+        function saveAndSubmit() {
+            var checkboxes = document.querySelectorAll('input[type=checkbox]');
+            var selectedValues = [];
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    selectedValues.push(checkboxes[i].value);
+                }
+            }
+            document.getElementById('selectedValues').value = selectedValues.join(',');
+
+            document.getElementById('filter_group_form').submit();
+        }
+    </script>
+</head>
+<body>
+<h1>Application Reviews</h1>
+<form id="filter_group_form" action="/subgroups" method="POST">
+    <input type="checkbox" name="race" value="race"> Race<br>
+    <input type="checkbox" name="sex" value="sex"> Sex<br>
+    <input type="checkbox" name="ethnicity" value="ethnicity"> Ethnicity<br>
+    <input type="hidden" id="selectedValues" name="selectedValues">
+    <button type="button" onclick="saveAndSubmit()">Submit</button>
+</form>
+</body>
+</html>

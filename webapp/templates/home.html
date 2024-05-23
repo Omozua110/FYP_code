@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    
+</head>
+<body>
+    <h1>Bias Mitigation Platform</h1>
+    <p>Please select which action you would like to complete</p>
+    <a href="{{ url_for('applicants') }}">Review Flagged Individual Applications </a><br>
+    <a href="{{ url_for('subgroups') }}">Review Applications Based on Groups </a><br>
+    <a href="{{ url_for('group_stats') }}">View Group Metrics</a><br>
+    <a href="{{ url_for('explainability') }}">View Explainability </a><br>
+</body>
+</html>

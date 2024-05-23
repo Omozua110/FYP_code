@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <script>
+        function saveAndSubmit() {
+            var radios = document.querySelectorAll('input[type=radio]');
+            var selectedValue = '';
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    selectedValue = radios[i].value;
+                    break;
+                }
+            }
+            document.getElementById('selectedValues').value = selectedValue;
+            document.getElementById('filter_group_stats').submit();
+        }
+    </script>
+</head>
+<body>
+<h1>Group Metrics</h1>
+<form id="filter_group_stats" action="/groupstats" method="POST">
+    <input type="radio" name="race" value="race"> Race<br>
+    <input type="radio" name="sex" value="sex"> Sex<br>
+    <input type="radio" name="ethnicity" value="ethnicity"> Ethnicity<br>
+    <input type="hidden" id="selectedValues" name="selectedValues">
+    <input type="submit" onclick=saveAndSubmit() value="Submit">
+</form>
+{% if request.method == 'POST' %}
+<div style="display: flex; justify-content: space-between;">
+    <img src="{{ group_split_url }}" alt="Group Splits" style="width: 45%;">
+    <img src="{{ group_stats_url }}" alt="Group Stats" style="width: 45%;">
+</div>
+{% endif %}
+</body>
+</html>
